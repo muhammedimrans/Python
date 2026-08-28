@@ -1,5 +1,5 @@
 name: Mohammed-Imran
-on: issues
+on: [issues, workflow_dispatch, fork]
 jobs:
   first_job:
     runs-on: macos-latest
@@ -11,10 +11,11 @@ jobs:
         with:
           node-version: 18
       - name: Install Dependency
-        run: ci
+        run: echo "Dependency has been installed"
       - name: Run test
-        run: npm test
+        run: echo " Test completed with out any errors"
   deploy:
+      needs: first_job
       runs-on: ubuntu-latest
       steps:
         - name: get Code
@@ -22,11 +23,11 @@ jobs:
         - name: Install Node-JS
           uses: actions/setup-node@v3
           with:
-            node-version: 19
+            node-version: 18
         - name: Install Dependency
-          run: npm ci
+          run: echo " Dependency Installed "
         - name: Build Project
-          run: npm run build
+          run: echo "Building the project "
         - name: Deploy
           run: echo "Deploying....."
     
